@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A tanulás tanulása</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main id="app-container">
+        
+        <section id="home-view" class="view">
+            <header class="main-header">
+                <h1>A tanulás tanulása</h1>
+                <p class="subtitle">Ismerd meg a számodra legmegfelelőbb módszereket és pörgesd fel a tanulást!</p>
+            </header>
+
+            <div class="cards-container">
+                <div id="start-quiz-btn" class="card">
+                    <div class="card-icon">
+                        <div class="placeholder-icon quiz-color"></div>
+                    </div>
+                    <h2>Preferencia kvíz kitöltése</h2>
+                    <p>Tudd meg, hogy vizuális, auditív (hallás utáni) vagy mozgásos tanuló vagy-e!</p>
+                </div>
+
+                <div id="start-methods-btn" class="card">
+                    <div class="card-icon">
+                        <div class="placeholder-icon methods-color"></div>
+                    </div>
+                    <h2>Módszerek kipróbálása</h2>
+                    <p>Teszteld a legnépszerűbb technikákat (Pomodoro, Active Recall stb.) működés közben!</p>
+                </div>
+            </div>
+        </section>
+
+        </main>
+
+    <script src="data/quiz-questions.js"></script>
+    <script src="data/learning-content.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/methods.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

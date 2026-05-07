@@ -1,0 +1,285 @@
+/* Alapbeállítások és betűtípus */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#app-container {
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+}
+
+/* Főoldal nézet */
+.main-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.main-header h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-weight: 300;
+    color: #7f8c8d;
+}
+
+/* Kártyák konténere (A képed szerinti elrendezés) */
+.cards-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap; /* Mobilbarát megjelenéshez, ha szűk a hely */
+}
+
+/* Egyéni kártya stílus */
+.card {
+    background: white;
+    width: 350px;
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border: 2px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    border-color: #3498db;
+}
+
+/* A rajzodon szereplő négyzetek (ikonok helye) */
+.placeholder-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 25px auto;
+    background-color: #e0e0e0; /* A szürke négyzet a rajzodról */
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.quiz-color {
+    background-color: #d1e8ff; /* Halványkék a kvíznek */
+}
+
+.methods-color {
+    background-color: #d1ffd6; /* Halványzöld a módszereknek */
+}
+
+.card:hover .placeholder-icon {
+    background-color: #3498db;
+}
+
+/* Szövegek a kártyán belül */
+.card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #636e72;
+}
+
+/* Reszponzivitás: ha mobilról nézik, egymás alá kerüljenek */
+@media (max-width: 768px) {
+    .cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .card {
+        width: 100%;
+        max-width: 400px;
+    }
+}
+
+/* Kvíz stílusok */
+.quiz-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+    height: 8px;
+    background: #eee;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #3498db;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.options-grid {
+    display: grid;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.option-btn {
+    padding: 15px 20px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    text-align: left;
+    transition: all 0.2s;
+}
+
+.option-btn:hover {
+    border-color: #3498db;
+    background: #f7fbff;
+}
+
+/* Eredmény kártya */
+.result-card {
+    text-align: center;
+    background: white;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.result-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.action-btn {
+    margin-top: 30px;
+    padding: 12px 30px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* Módszerek Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.method-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.2s;
+    border-left: 5px solid #3498db;
+}
+
+.method-card:hover { transform: scale(1.03); }
+
+/* Flashcard stílus */
+.flashcard {
+    width: 300px;
+    height: 180px;
+    perspective: 1000px;
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+.card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    background: #fff;
+    text-align: center;
+    font-weight: bold;
+    transition: transform 0.6s;
+}
+
+.card-back { background: #3498db; color: white; transform: rotateY(180deg); }
+.flipped .card-front { transform: rotateY(180deg); }
+.flipped .card-back { transform: rotateY(0deg); }
+
+/* Info boxok */
+.info-grid { display: flex; gap: 15px; margin: 20px 0; }
+.info-box { padding: 15px; border-radius: 8px; flex: 1; font-size: 0.9rem; }
+.pros { background: #d4edda; color: #155724; }
+.cons { background: #f8d7da; color: #721c24; }
+
+.demo-layout { animation: fadeIn 0.5s ease; }
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.theory-section .info-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.interaction-section .demo-box {
+    background: #fdfdfd;
+    border: 2px dashed #3498db;
+    padding: 30px;
+    border-radius: 15px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#feynman-input {
+    width: 100%;
+    height: 120px;
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.d-none { display: none; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
