@@ -99,6 +99,52 @@ function renderInteractionTemplate(method) {
                     <div id="feynman-feedback" class="d-none"></div>
                 </div>`;
 
+        case 'mindmap':
+            return `
+                <div class="mindmap-demo">
+                    <p><strong>Téma:</strong> ${method.demoContent[0]}</p>
+                    <div id="mindmap-visual" class="mindmap-visual">
+                        <div class="mindmap-center">Biológia</div>
+                        <div class="mindmap-branch" style="top: 20%; left: 10%;">
+                            <div class="branch-label">Állatok <button class="branch-remove" onclick="removeMindmapBranch(this)">×</button></div>
+                        </div>
+                        <div class="mindmap-branch" style="top: 50%; left: 5%;">
+                            <div class="branch-label">Növények <button class="branch-remove" onclick="removeMindmapBranch(this)">×</button></div>
+                        </div>
+                        <div class="mindmap-branch" style="top: 80%; left: 10%;">
+                            <div class="branch-label">Gombák <button class="branch-remove" onclick="removeMindmapBranch(this)">×</button></div>
+                        </div>
+                        <div class="mindmap-branch" style="top: 30%; right: 5%;">
+                            <div class="branch-label">Sejtek <button class="branch-remove" onclick="removeMindmapBranch(this)">×</button></div>
+                        </div>
+                    </div>
+                    <div class="mindmap-controls">
+                        <input type="text" id="new-branch-input" placeholder="Új ág neve..." maxlength="20">
+                        <button class="action-btn" onclick="addMindmapBranch()">+ Ág hozzáadása</button>
+                    </div>
+                    <p class="demo-hint">💡 Írj be egy új ágat és kattints a gombra! Az ágakat az × gombbal törölheted.</p>
+                </div>`;
+
+        case 'sq3r':
+            return `
+                <div class="sq3r-demo">
+                    <div class="sq3r-steps">
+                        <button class="sq3r-btn active" onclick="setSQ3RStep(1)">1️⃣ Survey (Áttekintés)</button>
+                        <button class="sq3r-btn" onclick="setSQ3RStep(2)">2️⃣ Question (Kérdések)</button>
+                        <button class="sq3r-btn" onclick="setSQ3RStep(3)">3️⃣ Read (Olvasás)</button>
+                        <button class="sq3r-btn" onclick="setSQ3RStep(4)">4️⃣ Recite (Felmondás)</button>
+                        <button class="sq3r-btn" onclick="setSQ3RStep(5)">5️⃣ Review (Ellenőrzés)</button>
+                    </div>
+                    <div id="sq3r-content" class="sq3r-content">
+                        <h4>1. Survey - Tananyag áttekintése</h4>
+                        <p>Először nézd meg a címeket, képeket és összefoglalásokat! Ez ad egy gyors áttekintést az anyagról.</p>
+                        <div class="sq3r-preview">
+                            <strong>Címek:</strong> Fotoszintézis, a fotoszintézis folyamata, sötét és világos szakasz<br>
+                            <strong>Képek:</strong> Kloroplasztisz, zöld levelek, napfény
+                        </div>
+                    </div>
+                </div>`;
+
         default:
             return `<p class="placeholder-text">Ez a demó hamarosan elérhető lesz!</p>`;
     }
@@ -146,3 +192,105 @@ function checkFeynman() {
         </div>
     `;
 }
+
+// SQ3R lépések kezelése
+const sq3rSteps = [
+    {
+        title: "1. Survey - Tananyag áttekintése",
+        description: "Először nézd meg a címeket, képeket és összefoglalásokat! Ez ad egy gyors áttekintést az anyagról.",
+        content: "<strong>Címek:</strong> Fotoszintézis, a fotoszintézis folyamata, sötét és világos szakasz<br><strong>Képek:</strong> Kloroplasztisz, zöld levelek, napfény"
+    },
+    {
+        title: "2. Question - Kérdések felvetése",
+        description: "Milyen kérdéseket fog felvetni az anyag? Mire kell majd tudnod a választ?",
+        content: "<strong>Kérdések:</strong> Mi az a fotoszintézis? Miért zöldek a levelek? Hogyan történik az energiaátadás?"
+    },
+    {
+        title: "3. Read - Gondos olvasás",
+        description: "Most olvasd el figyelmesen az anyagot, az előzőleg felvetett kérdésekre keresve válaszokat.",
+        content: "<strong>Szöveg:</strong> A fotoszintézis egy biokémiai folyamat, amelyben a zöld növények napfény segítségével szén-dioxidot és vizet alakítanak cukorra..."
+    },
+    {
+        title: "4. Recite - Saját szavakkal felmondás",
+        description: "Zárd be a könyvet, és próbáld meg saját szavakkal elmondani, amit olvastál!",
+        content: "<strong>Feladat:</strong> Mondd el, mit tanultál a fotoszintézisről úgy, hogy egy barátod megértse."
+    },
+    {
+        title: "5. Review - Végig átnézés",
+        description: "Végig nézd az anyagot még egyszer, hogy biztosítsd, hogy megértetted és megjegyezted.",
+        content: "<strong>Ellenőrzés:</strong> Válaszoltad-e meg az összes kérdést? Hol van még zavar? Milyen részeket kell újraolvasni?"
+    }
+];
+
+function setSQ3RStep(stepNum) {
+    const contentDiv = document.getElementById('sq3r-content');
+    const buttons = document.querySelectorAll('.sq3r-btn');
+    
+    // Aktív gomb megjelölése
+    buttons.forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === stepNum - 1);
+    });
+    
+    // Tartalom frissítése
+    const step = sq3rSteps[stepNum - 1];
+    contentDiv.innerHTML = `
+        <h4>${step.title}</h4>
+        <p>${step.description}</p>
+        <div class="sq3r-preview">
+            ${step.content}
+        </div>
+    `;
+}
+
+// Mind Map interaktív funkciók
+let branchCounter = 4; // Létezik már 4 ág
+
+function addMindmapBranch() {
+    const input = document.getElementById('new-branch-input');
+    const branchName = input.value.trim();
+    
+    if (!branchName) {
+        alert('Kérlek, írj be egy ág nevet!');
+        return;
+    }
+    
+    if (branchName.length < 2) {
+        alert('A név legalább 2 karakter hosszú legyen!');
+        return;
+    }
+    
+    const visual = document.getElementById('mindmap-visual');
+    
+    // Véletlenszerű pozíció (0-360 fok körül)
+    const angle = (branchCounter * 72) % 360;
+    const distance = 140;
+    const rad = (angle * Math.PI) / 180;
+    const top = 50 + Math.sin(rad) * 30;
+    const left = 50 + Math.cos(rad) * 35;
+    
+    const newBranch = document.createElement('div');
+    newBranch.className = 'mindmap-branch';
+    newBranch.style.top = top + '%';
+    newBranch.style.left = left + '%';
+    newBranch.innerHTML = `<div class="branch-label">${branchName} <button class="branch-remove" onclick="removeMindmapBranch(this)">×</button></div>`;
+    
+    visual.appendChild(newBranch);
+    
+    input.value = '';
+    input.focus();
+    branchCounter++;
+}
+
+function removeMindmapBranch(btn) {
+    const branch = btn.closest('.mindmap-branch');
+    branch.style.animation = 'fadeOut 0.3s ease';
+    setTimeout(() => branch.remove(), 300);
+}
+
+// Enter billentyű támogatása az input mezőben
+document.addEventListener('keypress', function(e) {
+    const input = document.getElementById('new-branch-input');
+    if (e.key === 'Enter' && input && document.activeElement === input) {
+        addMindmapBranch();
+    }
+});

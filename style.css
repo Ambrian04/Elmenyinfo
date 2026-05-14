@@ -283,3 +283,173 @@ body {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* Mind Map stílus */
+.mindmap-visual {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mindmap-center {
+    width: 80px;
+    height: 80px;
+    background: #3498db;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    position: absolute;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.mindmap-branch {
+    position: absolute;
+    background: #ecf0f1;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #2ecc71;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.branch-label {
+    font-weight: 600;
+    color: #27ae60;
+    font-size: 0.95rem;
+}
+
+.demo-hint {
+    text-align: center;
+    margin-top: 15px;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* SQ3R stílus */
+.sq3r-demo {
+    width: 100%;
+}
+
+.sq3r-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.sq3r-btn {
+    padding: 12px 15px;
+    background: #ecf0f1;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    color: #2c3e50;
+}
+
+.sq3r-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.sq3r-btn.active {
+    background: #3498db;
+    color: white;
+    border-color: #2980b9;
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+}
+
+.sq3r-content {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 5px solid #3498db;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.sq3r-content h4 {
+    color: #2c3e50;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.sq3r-content p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.sq3r-preview {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid #2ecc71;
+    color: #2c3e50;
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+/* Mind Map Controls */
+.mindmap-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+#new-branch-input {
+    padding: 12px 15px;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    min-width: 200px;
+    transition: border-color 0.3s;
+}
+
+#new-branch-input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Branch Remove Button */
+.branch-remove {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 5px;
+    font-weight: bold;
+    transition: color 0.2s;
+    margin-left: 8px;
+}
+
+.branch-remove:hover {
+    color: #c0392b;
+    transform: scale(1.2);
+}
+
+/* Animáció az ágak kiesésére */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
